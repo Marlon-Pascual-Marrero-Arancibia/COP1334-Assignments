@@ -27,13 +27,11 @@ string removeDecimals(string withDecimal) { return withDecimal.substr(0, withDec
 string format(string unformatted)
 {
     unformatted = removeDecimals(unformatted);
-
     string formatted = "";
     string unformattedReady ="";
     int commaCount = 0;
 
     int unformattedDiv3Length = roundDownToDivisibleBy3(unformatted.length());
-
     if (unformattedDiv3Length != unformatted.length()) 
     {
         unformattedReady = unformatted.substr(0, unformattedDiv3Length);
@@ -48,15 +46,16 @@ string format(string unformatted)
             formatted += unformattedReady.substr(i,i+3);
         } else {
             formatted += ","+unformattedReady.substr(i,i+3);
+            commaCount += 1;
         }
         
     }
 
-    if (unformatted.length() != formatted.length()+commaCount) 
+    if (formatted.length() != unformatted.length()+commaCount)
     {
         formatted = unformatted.substr(0,unformatted.find(formatted));
     }
-
+    
     return formatted;
 }
 
@@ -65,6 +64,6 @@ int main()
     int sales = 1000000;
     float eastSalesPercentage = .58;
     string eastSalesGenerated = std::to_string(eastSalesPercentage*sales);
-    std::cout << format(eastSalesGenerated); //580000
+    std::cout << format(eastSalesGenerated);
     return 0;
 }
